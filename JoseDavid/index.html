@@ -4,79 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokémon Random desde API</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <h1>Pokémon Random desde API</h1>
   <button onclick="obtenerPokemonRandom()">Obtener Pokémon al Azar</button>
   <div id="resultado"></div>
 
-  <script>
-    // Función para obtener un Pokémon al azar desde la PokeAPI
-    function obtenerPokemonRandom() {
-      // Limpiar el contenido previo
-      document.getElementById("resultado").innerHTML = "";
-
-      // Obtener un número aleatorio para el Pokémon
-      var pokemonId = Math.floor(Math.random() * 898 + 1);
-
-      // URL de la PokeAPI para obtener detalles del Pokémon
-      var url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonId;
-
-      // Mapear nombres de tipos a español
-      var tiposEnEspanol = {
-        normal: "Normal",
-        fighting: "Lucha",
-        flying: "Volador",
-        poison: "Veneno",
-        ground: "Tierra",
-        rock: "Roca",
-        bug: "Bicho",
-        ghost: "Fantasma",
-        steel: "Acero",
-        fire: "Fuego",
-        water: "Agua",
-        grass: "Planta",
-        electric: "Eléctrico",
-        psychic: "Psíquico",
-        ice: "Hielo",
-        dragon: "Dragón",
-        dark: "Siniestro",
-        fairy: "Hada"
-      };
-
-      // Realizar la solicitud utilizando fetch
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          // Crear elementos HTML para mostrar la información del Pokémon
-          var resultadoDiv = document.getElementById("resultado");
-
-          // Nombre del Pokémon
-          var nombrePokemon = document.createElement("p");
-          nombrePokemon.innerText = "Nombre: " + data.name;
-          resultadoDiv.appendChild(nombrePokemon);
-
-          // Tipos del Pokémon en español
-          var tiposPokemon = document.createElement("p");
-          tiposPokemon.innerText = "Tipos: " + data.types.map(type => tiposEnEspanol[type.type.name]).join(", ");
-          resultadoDiv.appendChild(tiposPokemon);
-
-          // Habilidades del Pokémon
-          var habilidadesPokemon = document.createElement("p");
-          habilidadesPokemon.innerText = "Habilidades: " + data.abilities.map(ability => ability.ability.name).join(", ");
-          resultadoDiv.appendChild(habilidadesPokemon);
-
-          // Sprite del Pokémon
-          var spritePokemon = document.createElement("img");
-          spritePokemon.src = data.sprites.front_default;
-          spritePokemon.alt = "Sprite del Pokémon";
-          resultadoDiv.appendChild(spritePokemon);
-
-          // Puedes agregar más detalles según sea necesario
-
-        })
-        .catch(error => console.error('Error al obtener el Pokémon', error));
-    }
-  </script>
+  <script src="js/pokemon.js"></script>
 </body>
 </html>
