@@ -1,4 +1,16 @@
+@font-face {
+    font-family: 'Pokemon';  /* Puedes darle el nombre que desees */
+    src: url('../fuentes/pokemon/Pokemon\ Hollow.ttf'),
+         url('../fuentes/pokemon/Pokemon\ Solid.ttf');
+    /* Puedes añadir más formatos si lo necesitas, como truetype o opentype */
+    font-weight: normal;
+    font-style: normal;
+  }
+
 body{
     background-color: rgb(71, 71, 71);
     width: 100%;
+}
+h1{
+    font-family: 'Pokemon';
 }

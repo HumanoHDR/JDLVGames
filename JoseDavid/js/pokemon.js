@@ -32,7 +32,6 @@
       dragon: "Dragón",
       dark: "Siniestro",
       fairy: "Hada"
-      // Puedes agregar más tipos según sea necesario
     };
 
     // Realizar la solicitud utilizando fetch para detalles del Pokémon
