@@ -77,21 +77,21 @@
           spritePokemon.alt = "Sprite del Pokémon";
           resultadoDiv.appendChild(spritePokemon);
 
-          // Primer juego en el que apareció el Pokémon
-          var versionesAparicion = dataEspecie.version_details.map(detail => detail.version.name);
-          var primerJuego = versionesAparicion.length > 0 ? versionesAparicion[0] : "Desconocido";
-          var primerJuegoPokemon = document.createElement("p");
-          primerJuegoPokemon.innerText = "Primer juego en el que apareció: " + primerJuego;
-          resultadoDiv.appendChild(primerJuegoPokemon);
+          // // Primer juego en el que apareció el Pokémon
+          // var versionesAparicion = dataEspecie.version_details.map(detail => detail.version.name);
+          // var primerJuego = versionesAparicion.length > 0 ? versionesAparicion[0] : "Desconocido";
+          // var primerJuegoPokemon = document.createElement("p");
+          // primerJuegoPokemon.innerText = "Primer juego en el que apareció: " + primerJuego;
+          // resultadoDiv.appendChild(primerJuegoPokemon);
 
-          // Número de evolución y cuántas evoluciones tiene
-          var evoluciones = obtenerEvoluciones(dataEspecie.evolves_from_species);
-          var numeroEvolucion = evoluciones.numeroEvolucion;
-          var cantidadEvoluciones = evoluciones.cantidadEvoluciones;
+          // // Número de evolución y cuántas evoluciones tiene
+          // var evoluciones = obtenerEvoluciones(dataEspecie.evolves_from_species);
+          // var numeroEvolucion = evoluciones.numeroEvolucion;
+          // var cantidadEvoluciones = evoluciones.cantidadEvoluciones;
 
-          var infoEvolucion = document.createElement("p");
-          infoEvolucion.innerText = "Número de evolución: " + numeroEvolucion + "\nCantidad de evoluciones: " + cantidadEvoluciones;
-          resultadoDiv.appendChild(infoEvolucion);
+          // var infoEvolucion = document.createElement("p");
+          // infoEvolucion.innerText = "Número de evolución: " + numeroEvolucion + "\nCantidad de evoluciones: " + cantidadEvoluciones;
+          // resultadoDiv.appendChild(infoEvolucion);
 
           // Puedes agregar más detalles según sea necesario
 
