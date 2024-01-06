@@ -1,8 +1,9 @@
  // Función para obtener un Pokémon al azar desde la PokeAPI
+ var pokemoninicial = []
+
+ obtenerPokemonRandom();
  function obtenerPokemonRandom() {
   // Limpiar el contenido previo
-  document.getElementById("resultado").innerHTML = "";
-
   // Obtener un número aleatorio para el Pokémon
   var pokemonId = Math.floor(Math.random() * 898 + 1);
 
@@ -11,6 +12,7 @@
 
   // URL de la PokeAPI para obtener detalles de la especie del Pokémon
   var urlEspecie = 'https://pokeapi.co/api/v2/pokemon-species/' + pokemonId;
+
 
   // Mapear nombres de tipos a español
   var tiposEnEspanol = {
@@ -43,64 +45,53 @@
       fetch(urlEspecie)
         .then(responseEspecie => responseEspecie.json())
         .then(dataEspecie => {
-          // Crear elementos HTML para mostrar la información del Pokémon
-          var resultadoDiv = document.getElementById("resultado");
-
-          // Nombre del Pokémon
-          var nombrePokemon = document.createElement("p");
-          nombrePokemon.innerText = "Nombre: " + data.name;
-          resultadoDiv.appendChild(nombrePokemon);
-
-          // Número en la Pokédex Nacional
-          var numeroPokedex = document.createElement("p");
-          numeroPokedex.innerText = "Número en la Pokédex Nacional: " + data.id;
-          resultadoDiv.appendChild(numeroPokedex);
-
-          // Generación del Pokémon
-          var generacionPokemon = document.createElement("p");
-          generacionPokemon.innerText = "Generación: " + obtenerGeneracion(dataEspecie.generation.name);
-          resultadoDiv.appendChild(generacionPokemon);
+          // Aqui sacaremos todos los campos del pokemon aleatorio
+          pokemoninicial[0] = data.id;
 
           // Tipos del Pokémon en español
-          var tiposPokemon = document.createElement("p");
-          tiposPokemon.innerText = "Tipos: " + data.types.map(type => tiposEnEspanol[type.type.name]).join(", ");
-          resultadoDiv.appendChild(tiposPokemon);
+          tipos= data.types.map(type => tiposEnEspanol[type.type.name]).join(", ");
+          tipos = tipos.split(",");
 
-          // Habilidades del Pokémon
-          var habilidadesPokemon = document.createElement("p");
-          habilidadesPokemon.innerText = "Habilidades: " + data.abilities.map(ability => ability.ability.name).join(", ");
-          resultadoDiv.appendChild(habilidadesPokemon);
+          pokemoninicial[1] = tipos[0]
 
-          // Sprite del Pokémon
-          var spritePokemon = document.createElement("img");
-          spritePokemon.src = data.sprites.front_default;
-          spritePokemon.alt = "Sprite del Pokémon";
-          resultadoDiv.appendChild(spritePokemon);
+          if(tipos[1] == null) pokemoninicial[2] = tipos[0];
+          else pokemoninicial[2] = tipos[1];
 
-          // // Primer juego en el que apareció el Pokémon
-          // var versionesAparicion = dataEspecie.version_details.map(detail => detail.version.name);
-          // var primerJuego = versionesAparicion.length > 0 ? versionesAparicion[0] : "Desconocido";
-          // var primerJuegoPokemon = document.createElement("p");
-          // primerJuegoPokemon.innerText = "Primer juego en el que apareció: " + primerJuego;
-          // resultadoDiv.appendChild(primerJuegoPokemon);
+          
+          // Generación del Pokémon
+          pokemoninicial[3] = obtenerGeneracion(dataEspecie.generation.name);
 
-          // // Número de evolución y cuántas evoluciones tiene
-          // var evoluciones = obtenerEvoluciones(dataEspecie.evolves_from_species);
-          // var numeroEvolucion = evoluciones.numeroEvolucion;
-          // var cantidadEvoluciones = evoluciones.cantidadEvoluciones;
-
-          // var infoEvolucion = document.createElement("p");
-          // infoEvolucion.innerText = "Número de evolución: " + numeroEvolucion + "\nCantidad de evoluciones: " + cantidadEvoluciones;
-          // resultadoDiv.appendChild(infoEvolucion);
-
-          // Puedes agregar más detalles según sea necesario
+          // Nombre del Pokémon
+          pokemoninicial[4] = data.name;
+          console.log(pokemoninicial[4]); //
 
         })
         .catch(errorEspecie => console.error('Error al obtener detalles de la especie del Pokémon', errorEspecie));
     })
     .catch(error => console.error('Error al obtener detalles del Pokémon', error));
 }
-
+var tiposEnEspanol = {
+  normal: "Normal",
+  fighting: "Lucha",
+  flying: "Volador",
+  poison: "Veneno",
+  ground: "Tierra",
+  rock: "Roca",
+  bug: "Bicho",
+  ghost: "Fantasma",
+  steel: "Acero",
+  fire: "Fuego",
+  water: "Agua",
+  grass: "Planta",
+  electric: "Eléctrico",
+  psychic: "Psíquico",
+  ice: "Hielo",
+  dragon: "Dragón",
+  dark: "Siniestro",
+  fairy: "Hada"
+  // Puedes agregar más tipos según sea necesario
+};
+divtitulos = document.getElementById("titulos");
 // Función para obtener la generación a partir del nombre de la generación
 function obtenerGeneracion(nombreGeneracion) {
   // Mapear nombres de generaciones a números
@@ -132,3 +123,69 @@ function obtenerEvoluciones(evolvesFromSpecies) {
 
   return { numeroEvolucion, cantidadEvoluciones };
 }
+
+comprobar = document.getElementById("Comprobar");
+
+comprobar.addEventListener("click", function(){
+    nombrePokemonUsuario = document.getElementById("nombrePokemon").value;
+    nombrePokemonUsuario = nombrePokemonUsuario.toLowerCase();
+    console.log(nombrePokemonUsuario);
+    if (nombrePokemonUsuario != "")
+    {
+      errores = document.getElementById("error");
+      fetch(`https://pokeapi.co/api/v2/pokemon/${nombrePokemonUsuario}/`)
+                .then(response => response.json())
+                .then(pokemon => {
+                pokemonid = pokemon.id
+                  fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonid}/`)
+                      .then(response => response.json())
+                      .then(dataEspecie => {
+                        divcreation = document.createElement("div")
+                        divcreation.classList.add("resultado");
+                        
+                        generacionPokemon = document.createElement("div");
+                        generacionPokemon.classList.add("r3")
+                        generacionPokemon.innerText = obtenerGeneracion(dataEspecie.generation.name);
+                        divcreation.appendChild(generacionPokemon);
+                        
+                        /*nombrePoke = document.createElement("div");
+                        nombrePoke.classList.add("r4");
+                        nombrePoke.innerHTML = pokemon.name;
+                        divcreation.appendChild(nombrePoke);*/
+
+                        tipos= pokemon.types.map(type => tiposEnEspanol[type.type.name]).join(", ");
+                        tipos = tipos.split(",");
+
+                        tipo1Pokemon = document.createElement("div");
+                        tipo1Pokemon.classList.add("r1");
+                        
+                        tipo1Pokemon.innerText = tipos[0];
+                        divcreation.appendChild(tipo1Pokemon);
+
+                        tipo2Pokemon = document.createElement("div");
+                        tipo2Pokemon.classList.add("r2");
+                        if(tipos[1] == null) tipo2Pokemon.innerText = tipos[0];
+                        else tipo2Pokemon.innerText = tipos[1];
+
+                        pesopokemon = document.createElement("div");
+                        pesopokemon.classList.add("r5");
+                        pesopokemon.innerText = pokemon.weight + "kg";
+                        divcreation.appendChild(pesopokemon);
+
+                        alturapokemon = document.createElement("div");
+                        alturapokemon.classList.add("r4");
+                          altura = pokemon.height / 10
+                        alturapokemon.innerText = altura + " m";
+                        divcreation.appendChild(alturapokemon);
+
+                        divcreation.appendChild(tipo2Pokemon);
+                        divtitulos.insertAdjacentElement('afterend',divcreation);
+                        console.log("exito")
+                      })
+                    })
+    }
+});
+
+function mostrarPokemon(pokemon) {
+  
+};
