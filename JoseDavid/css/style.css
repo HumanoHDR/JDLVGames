@@ -64,11 +64,22 @@ body {
     margin-top: 20px;
     
 }
-.resultado>div{
+.resultado>div {
     height: 60px;
     background: rgb(255, 255, 255);
     width: 80%;
     margin: auto;
+}
+
+ .fallo {
+    background: red !important;
+}
+
+.acierto {
+    background: green !important;
+}
+.semiacierto {
+    background: orange !important;
 }
 .r1 {
     grid-area: 1 / 1 / 6 / 2;
