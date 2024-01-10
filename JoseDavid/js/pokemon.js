@@ -1,10 +1,40 @@
 // Función para obtener un Pokémon al azar desde la PokeAPI
 var pokemoninicial = []
-
+var generaciones = 1025;
 // Obtener referencias a los elementos del DOM:
 var inputNombrePokemon = document.getElementById("nombrePokemon");
 var datalistPokemon = document.getElementById("pokemonList");
-
+var tiposEnEspanol = {
+  normal: "Normal",
+  fighting: "Lucha",
+  flying: "Volador",
+  poison: "Veneno",
+  ground: "Tierra",
+  rock: "Roca",
+  bug: "Bicho",
+  ghost: "Fantasma",
+  steel: "Acero",
+  fire: "Fuego",
+  water: "Agua",
+  grass: "Planta",
+  electric: "Eléctrico",
+  psychic: "Psíquico",
+  ice: "Hielo",
+  dragon: "Dragón",
+  dark: "Siniestro",
+  fairy: "Hada"
+  // Puedes agregar más tipos según sea necesario
+};
+function selectgen()
+{
+ generaciones = document.getElementById("generaciones").value;
+ obtenerPokemonRandom();
+ divremover = document.getElementsByClassName("resultado")
+ while (divremover.length > 0)
+ {
+   divremover[0].parentNode.removeChild(divremover[0]);
+ }
+}
 // Función para obtener nombres de Pokémon desde la API:
 function fetchPokemonNames() {
   fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
@@ -55,37 +85,13 @@ obtenerPokemonRandom();
 function obtenerPokemonRandom() {
   // Limpiar el contenido previo
   // Obtener un número aleatorio para el Pokémon
-  var pokemonId = Math.floor(Math.random() * 898 + 1);
+  var pokemonId = Math.floor(Math.random() * generaciones + 1);
 
   // URL de la PokeAPI para obtener detalles del Pokémon
   var url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonId;
 
   // URL de la PokeAPI para obtener detalles de la especie del Pokémon
   var urlEspecie = 'https://pokeapi.co/api/v2/pokemon-species/' + pokemonId;
-
-
-  // Mapear nombres de tipos a español
-  var tiposEnEspanol = {
-    normal: "Normal",
-    fighting: "Lucha",
-    flying: "Volador",
-    poison: "Veneno",
-    ground: "Tierra",
-    rock: "Roca",
-    bug: "Bicho",
-    ghost: "Fantasma",
-    steel: "Acero",
-    fire: "Fuego",
-    water: "Agua",
-    grass: "Planta",
-    electric: "Eléctrico",
-    psychic: "Psíquico",
-    ice: "Hielo",
-    dragon: "Dragón",
-    dark: "Siniestro",
-    fairy: "Hada"
-    // Puedes agregar más tipos según sea necesario
-  };
 
   // Realizar la solicitud utilizando fetch para detalles del Pokémon
   fetch(url)
@@ -123,27 +129,7 @@ function obtenerPokemonRandom() {
     })
     .catch(error => console.error('Error al obtener detalles del Pokémon', error));
 }
-var tiposEnEspanol = {
-  normal: "Normal",
-  fighting: "Lucha",
-  flying: "Volador",
-  poison: "Veneno",
-  ground: "Tierra",
-  rock: "Roca",
-  bug: "Bicho",
-  ghost: "Fantasma",
-  steel: "Acero",
-  fire: "Fuego",
-  water: "Agua",
-  grass: "Planta",
-  electric: "Eléctrico",
-  psychic: "Psíquico",
-  ice: "Hielo",
-  dragon: "Dragón",
-  dark: "Siniestro",
-  fairy: "Hada"
-  // Puedes agregar más tipos según sea necesario
-};
+
 divtitulos = document.getElementById("titulos");
 // Función para obtener la generación a partir del nombre de la generación
 function obtenerGeneracion(nombreGeneracion) {
@@ -176,7 +162,7 @@ function obtenerEvoluciones(evolvesFromSpecies) {
 
   return { numeroEvolucion, cantidadEvoluciones };
 }
-
+spanerror = document.getElementById("error");
 comprobar = document.getElementById("Comprobar");
 
 comprobar.addEventListener("click", function () {
@@ -214,7 +200,7 @@ comprobar.addEventListener("click", function () {
 
 
             tipo1Pokemon.innerText = tipos[0];
-            divcreation.appendChild(tipo1Pokemon);
+            
 
             tipo2Pokemon = document.createElement("div");
             tipo2Pokemon.classList.add("r2");
@@ -233,15 +219,16 @@ comprobar.addEventListener("click", function () {
             alturapokemon.innerText = altura + " m";
             divcreation.appendChild(alturapokemon);
 
-            divcreation.appendChild(tipo2Pokemon);
+            
             console.log(pokemoninicial)
             
             // Type 1 Comparison
-            tipo1Pokemon.classList.add(tipos[0] === pokemoninicial[1] ? "acierto" : "fallo");
+            tipo1Pokemon.classList.add(comprobarestados(tipos[0],pokemoninicial[1],pokemoninicial[2]));
 
             // Type 2 Comparison
-            tipo2Pokemon.classList.add(tipos[1] === pokemoninicial[2] ? "acierto" : "fallo");
-
+            tipo2Pokemon.classList.add(comprobarestados(tipos[1],pokemoninicial[2],pokemoninicial[1]));
+            divcreation.appendChild(tipo2Pokemon);
+            divcreation.appendChild(tipo1Pokemon);
             // Generation Comparison
             generacionPokemon.classList.add(gen === pokemoninicial[3] ? "acierto" : "fallo");
 
@@ -265,15 +252,33 @@ comprobar.addEventListener("click", function () {
               divcreation.appendChild(alturapokemon);
             }
 
-
-
             divtitulos.insertAdjacentElement('afterend', divcreation);
-            console.log("exito")
+
+            if(pokemoninicial[0]==pokemonid)
+            {
+              sprite = pokemon.sprites.front_default
+              spritepokeon = document.createElement('img');
+              spritepokeon.src = sprite;
+              spritepokeon.alt = pokemon.name;
+              spanerror.appendChild(spritepokeon);
+            }
           })
       })
   }
 });
 
-function mostrarPokemon(pokemon) {
-
+function comprobarestados(tipo, tipoal1, tipoal2) {
+  console.log("entro")
+  console.log(tipo.trim())
+  console.log(tipoal1.trim())
+  console.log(tipoal2.trim())
+  switch(tipo) {
+    case tipoal1.trim():
+      return "acierto"
+      break;
+      case tipoal2.trim():
+      return "semiacierto"
+      break;
+      default: return "fallo";
+  }
 };

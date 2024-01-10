@@ -16,6 +16,17 @@
     <div class="div1">
       <h1>¿Cual es este Pokemon?</h1>
       <div class="form">
+        <select onchange="selectgen()" name="generaciones" id="generaciones">
+          <option value="151">Primera</option>
+          <option value="251">Segunda</option>
+          <option value="386">Tercera</option>
+          <option value="493">Quarta</option>
+          <option value="649">Quinta</option>
+          <option value="721">Sexta</option>
+          <option value="809">Septima</option>
+          <option value="905">Octava</option>
+          <option value="1025" selected>Novena</option>
+        </select>
         <input type="text" placeholder="Introduce el Nombre" id="nombrePokemon" list="pokemonList">
         <datalist id="pokemonList">
         </datalist>

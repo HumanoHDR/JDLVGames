@@ -24,7 +24,7 @@ body {
 
 .div1 {
     grid-area: 1 / 2 / 6 / 5;
-    background-color: rgb(37, 37, 37);
+    background-color: rgba(37, 37, 37, 0.765);
     /* height: 95vh; */
 
 }
