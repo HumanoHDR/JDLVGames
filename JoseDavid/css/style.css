@@ -9,9 +9,10 @@
 }
 
 body {
-    background-color: rgb(71, 71, 71);
-}
+    background-image: url("../img/detective-pikachu.jpg");
+    background-size: cover;
 
+  }
 
 .parent {
     display: grid;
@@ -49,6 +50,7 @@ body {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 .titulos>div{
     text-align: center;
@@ -69,7 +71,12 @@ body {
     background: rgb(255, 255, 255);
     width: 80%;
     margin: auto;
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    text-align: center; /* Asegura que el texto esté centrado */
 }
+
 
  .fallo {
     background: red !important;

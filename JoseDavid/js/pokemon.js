@@ -1,6 +1,56 @@
 // Función para obtener un Pokémon al azar desde la PokeAPI
 var pokemoninicial = []
 
+// Obtener referencias a los elementos del DOM:
+var inputNombrePokemon = document.getElementById("nombrePokemon");
+var datalistPokemon = document.getElementById("pokemonList");
+
+// Función para obtener nombres de Pokémon desde la API:
+function fetchPokemonNames() {
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
+    .then(response => response.json())
+    .then(data => {
+      // Extraer nombres de Pokémon de los resultados de la API
+      var pokemonNames = data.results.map(pokemon => pokemon.name);
+      
+      // Llenar el datalist con los nombres de Pokémon
+      pokemonNames.forEach(function (pokemonName) {
+        var option = document.createElement("option");
+        option.value = pokemonName;
+        datalistPokemon.appendChild(option);
+      });
+    })
+    .catch(error => console.error('Error al obtener nombres de Pokémon', error));
+}
+
+// Llamar a la función para obtener nombres de Pokémon:
+fetchPokemonNames();
+
+// Agregar un event listener para cambios en la entrada de texto y mostrar sugerencias:
+inputNombrePokemon.addEventListener("input", function () {
+  var inputText = inputNombrePokemon.value.toLowerCase();
+
+  // Limpiar sugerencias existentes
+  datalistPokemon.innerHTML = "";
+
+  // Agregar nuevas sugerencias al datalist
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
+    .then(response => response.json())
+    .then(data => {
+      // Filtrar sugerencias basadas en la entrada del usuario
+      var suggestions = data.results
+        .map(pokemon => pokemon.name)
+        .filter(pokemonName => pokemonName.startsWith(inputText));
+
+      suggestions.forEach(function (suggestion) {
+        var option = document.createElement("option");
+        option.value = suggestion;
+        datalistPokemon.appendChild(option);
+      });
+    })
+    .catch(error => console.error('Error al obtener nombres de Pokémon', error));
+});
+
 obtenerPokemonRandom();
 function obtenerPokemonRandom() {
   // Limpiar el contenido previo
@@ -174,7 +224,7 @@ comprobar.addEventListener("click", function () {
             pesopokemon = document.createElement("div");
             pesopokemon.classList.add("r5");
             let peso = pokemon.weight;
-            pesopokemon.innerText = peso+ "kg";
+            pesopokemon.innerText = peso + "kg";
             divcreation.appendChild(pesopokemon);
 
             alturapokemon = document.createElement("div");
@@ -185,45 +235,36 @@ comprobar.addEventListener("click", function () {
 
             divcreation.appendChild(tipo2Pokemon);
             console.log(pokemoninicial)
-            if (tipos[0] === pokemoninicial[1]) {
-              tipo1Pokemon.classList.add("acierto");
-            } else {
-              tipo1Pokemon.classList.add("fallo");
-            }
-            if (tipos[1] === pokemoninicial[2]) {
-              tipo2Pokemon.classList.add("acierto");
-            } else {
-              tipo2Pokemon.classList.add("fallo");
-            }
-            if (gen === pokemoninicial[3]) {
-              generacionPokemon.classList.add("acierto");
-            } else {
-              generacionPokemon.classList.add("fallo");
-            }
-            if (peso > pokemoninicial[5]) {
-              pesopokemon.innerText = "↓ "+peso+ "kg";
+            
+            // Type 1 Comparison
+            tipo1Pokemon.classList.add(tipos[0] === pokemoninicial[1] ? "acierto" : "fallo");
+
+            // Type 2 Comparison
+            tipo2Pokemon.classList.add(tipos[1] === pokemoninicial[2] ? "acierto" : "fallo");
+
+            // Generation Comparison
+            generacionPokemon.classList.add(gen === pokemoninicial[3] ? "acierto" : "fallo");
+
+            // Weight Comparison
+            if (peso !== pokemoninicial[5]) {
+              pesopokemon.innerText = (peso > pokemoninicial[5] ? "↓ " : "↑ ") + peso + "kg";
               divcreation.appendChild(pesopokemon);
-            } 
-            else if (peso < pokemoninicial[5]) {
-              pesopokemon.innerText = "↑ "+peso+ "kg";
-              divcreation.appendChild(pesopokemon);
-            }
-            else if (peso == pokemoninicial[5]) {
-              pesopokemon.innerText = peso+ "kg";
+            } else {
+              pesopokemon.innerText = peso + "kg";
               pesopokemon.classList.add("acierto");
               divcreation.appendChild(pesopokemon);
             }
-            if (altura == pokemoninicial[6]) {
+
+            // Height Comparison
+            if (altura !== pokemoninicial[6]) {
+              alturapokemon.innerText = (altura > pokemoninicial[6] ? "↓ " : "↑ ") + altura + "m";
+              divcreation.appendChild(alturapokemon);
+            } else {
+              alturapokemon.innerText = altura + "m";
               alturapokemon.classList.add("acierto");
-              alturapokemon.innerText = altura + " m";
-              divcreation.appendChild(alturapokemon);
-            } else if(altura > pokemoninicial[6]){
-              alturapokemon.innerText = "↓ "+altura + " m";
-              divcreation.appendChild(alturapokemon);
-            } else if(altura < pokemoninicial[6]){
-              alturapokemon.innerText = "↑ "+altura + " m";
               divcreation.appendChild(alturapokemon);
             }
+
 
 
             divtitulos.insertAdjacentElement('afterend', divcreation);
