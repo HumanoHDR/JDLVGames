@@ -2,6 +2,12 @@
 var pokemoninicial = []
 var generaciones = 1025;
 var formulario = document.getElementById("form");
+var sitioform = document.getElementById("poneraqui");
+var nuevapartida = document.createElement("button");
+nuevapartida.classList.add("Comprobar");
+nuevapartida.innerHTML = "Nueva Partida";
+nuevapartida.setAttribute("id", "reinicio");
+nuevapartida.setAttribute("onclick","selectgen()");
 // Obtener referencias a los elementos del DOM:
 var inputNombrePokemon = document.getElementById("nombrePokemon");
 var datalistPokemon = document.getElementById("pokemonList");
@@ -26,14 +32,38 @@ var tiposEnEspanol = {
   fairy: "Hada"
   // Puedes agregar más tipos según sea necesario
 };
+//La función selectgen sirve para que cuando de alguna forma se tenga que eleguir un pokemon nuevo
+//este sea entre las generaciones que se hayan seleccionado o bien se encarga de empezar una partida cuando se empieza de nuevo
 function selectgen() {
-  generaciones = document.getElementById("generaciones").value;
+  if(document.getElementById("generaciones"))
+  {
+    //Lo primero como cuando se gana se borra el selector de generaciones es saber cuantos pokemons pondremos
+    generaciones = document.getElementById("generaciones").value;
+  } else generaciones=1025;
+  //En marcando el numero de pokemons que queremos se llamara a la funcion obtener pokemon random que es la 
+  //que se encarga de sacar el pokemon que hay que adivinar
   obtenerPokemonRandom();
+  //Despues de crear el pokemon miraremos si estamos en esta funcion por que se termino la partida o si es en caso
+  //de solo cambiar la generacion
+  if ( document.getElementById("reinicio"))
+  {
+    //si llega aqui significa que terminamos la partida y una vez pulsado el botton agregaremos el buscador y borraremos el reiniciar partida
+    sitioform.removeChild(nuevapartida)
+    sitioform.insertAdjacentElement('afterend', formulario)
+  }
+  //declaramos el contenedor donde se encuentran todos los resultados que hemos obtenido en la partida para asi borrarlos
   divremover = document.getElementsByClassName("resultado")
   while (divremover.length > 0) {
+    //atraves de este bucle borraremos todos los resultados
+    divremover[0].parentNode.removeChild(divremover[0]);
+  }
+  divremover = document.getElementsByClassName("resultado2")
+  while (divremover.length > 0) {
+    //atraves de este bucle borraremos todos los resultados
     divremover[0].parentNode.removeChild(divremover[0]);
   }
 }
+
 // Función para obtener nombres de Pokémon desde la API:
 function fetchPokemonNames() {
   fetch("https://pokeapi.co/api/v2/pokemon?limit=1025")
@@ -270,9 +300,11 @@ comprobar.addEventListener("click", function () {
               contenedoracierto.appendChild(parrafonombrepoke);
               // Añadir el contenedor al elemento con id "spanerror"
               spanerror.appendChild(contenedoracierto);
+              sitioform.appendChild(nuevapartida);
               
             } else {
               contenedorfallo = document.createElement('div');
+              contenedorfallo.classList.add('resultado2');
               parrafonombrepoke = document.createElement('p');
               sprite = pokemon.sprites.front_default;
               spritepokeon = document.createElement('img');
@@ -289,9 +321,7 @@ comprobar.addEventListener("click", function () {
 });
 
 function comprobarestados(tipo, tipoal1, tipoal2) {
-  console.log(tipo.trim())
-  console.log(tipoal1.trim())
-  console.log(tipoal2.trim())
+
   switch (tipo.trim()) {
     case tipoal1.trim():
       return "acierto"
