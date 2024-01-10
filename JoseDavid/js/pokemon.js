@@ -286,7 +286,6 @@ comprobar.addEventListener("click", function () {
             if (pokemoninicial[0] == pokemonid) {
               formulario.parentElement.removeChild(formulario);
               contenedoracierto = document.createElement('div');
-              
               // Crear la imagen del Pokémon
               sprite = pokemon.sprites.front_default;
               spritepokeon = document.createElement('img');
@@ -314,10 +313,12 @@ comprobar.addEventListener("click", function () {
               contenedorfallo.appendChild(spritepokeon);
               contenedorfallo.appendChild(parrafonombrepoke);
               document.getElementById("div3").appendChild(contenedorfallo);
+            
             }
           })
       })
   }
+  
 });
 
 function comprobarestados(tipo, tipoal1, tipoal2) {
@@ -355,10 +356,8 @@ function cambiarTexto() {
       btn.innerText = 'Instrucciones';
   }
 }
-cambiartemazo();
-function cambiartemazo() {
-  document.getElementById("source").setAttribute('src', 'mp3/win.m4a');
-}
+
+
 
 window.onload = cambiarTexto;
 window.onresize = cambiarTexto;

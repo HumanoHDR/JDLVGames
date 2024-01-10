@@ -209,9 +209,9 @@ input, #Comprobar, select {
     width: 20px;
     color: white;
 }
-.ocultar
-{
- display: none;
+.Comprobar {
+    margin: 5px;
+    
 }
 #poneraqui
 {
