@@ -9,8 +9,7 @@
 }
 
 body {
-    background-image: url("../img/detective-pikachu.jpg");
-    background-size: cover;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://raw.githubusercontent.com/GameModerator/Pokemon-Showdown-Skin/master/Reshiram.jpg) center / cover no-repeat fixed #7d56ff !important;
 
   }
 
@@ -186,6 +185,7 @@ body {
 
 .form {
     text-align: center;
+    display: display;
 }
 
 input, #Comprobar, select {
@@ -199,4 +199,17 @@ input, #Comprobar, select {
         display: block;
         width: 100%;
     }
+}
+.musica
+{
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+    height: 20px;
+    width: 20px;
+    color: white;
+}
+.ocultar
+{
+ display: none;
 }

@@ -1,6 +1,7 @@
 // Función para obtener un Pokémon al azar desde la PokeAPI
 var pokemoninicial = []
 var generaciones = 1025;
+var formulario = document.getElementById("form");
 // Obtener referencias a los elementos del DOM:
 var inputNombrePokemon = document.getElementById("nombrePokemon");
 var datalistPokemon = document.getElementById("pokemonList");
@@ -253,7 +254,9 @@ comprobar.addEventListener("click", function () {
             divtitulos.insertAdjacentElement('afterend', divcreation);
 
             if (pokemoninicial[0] == pokemonid) {
+              formulario.parentElement.removeChild(formulario);
               contenedoracierto = document.createElement('div');
+              
               // Crear la imagen del Pokémon
               sprite = pokemon.sprites.front_default;
               spritepokeon = document.createElement('img');
@@ -267,6 +270,7 @@ comprobar.addEventListener("click", function () {
               contenedoracierto.appendChild(parrafonombrepoke);
               // Añadir el contenedor al elemento con id "spanerror"
               spanerror.appendChild(contenedoracierto);
+              
             } else {
               contenedorfallo = document.createElement('div');
               parrafonombrepoke = document.createElement('p');
@@ -278,7 +282,6 @@ comprobar.addEventListener("click", function () {
               contenedorfallo.appendChild(spritepokeon);
               contenedorfallo.appendChild(parrafonombrepoke);
               document.getElementById("div3").appendChild(contenedorfallo);
-
             }
           })
       })
@@ -321,6 +324,10 @@ function cambiarTexto() {
   } else {
       btn.innerText = 'Instrucciones';
   }
+}
+cambiartemazo();
+function cambiartemazo() {
+  document.getElementById("source").setAttribute('src', 'mp3/win.m4a');
 }
 
 window.onload = cambiarTexto;

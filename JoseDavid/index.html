@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokémon Random desde API</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/61972f9ed7.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
   <div class="parent">
     <div class="div1">
       <h1>¿Cual es este Pokemon?</h1>
-      <div class="form">
+      <div class="form" id="form">
         <select onchange="selectgen()" name="generaciones" id="generaciones">
           <option value="151">Primera</option>
           <option value="251">Segunda</option>
@@ -38,7 +39,7 @@
       <div class="titulos" id="titulos">
         <div class="r1">Tipo</div>
         <div class="r2">Tipo 2</div>
-        <div class="r3">Generacion</div>
+        <div class="r3">Generación</div>
         <div class="r4">Altura</div>
         <div class="r5">Peso</div>
       </div>
@@ -61,8 +62,15 @@
       
         </div>
   </div>
+  <span class="musica">
+    <i class="fa-solid fa-volume-high" id="iconovolumen" onclick="volumencambio()"></i>
+  </span>
+    <audio autoplay loop id="music" volume="0.5">
+      <source id="source" src="mp3/main.m4a" type="audio/mpeg">
+      </audio>
 
   <script src="js/pokemon.js"></script>
+  <script src="js/music.js"></script>
 </body>
 
 </html>
