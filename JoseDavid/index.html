@@ -25,14 +25,14 @@
           <option value="721">Sexta</option>
           <option value="809">Septima</option>
           <option value="905">Octava</option>
-          <option value="1025" selected>Novena</option>
+          <option value="1025" selected="selected">Novena</option>
         </select>
         <input type="text" placeholder="Introduce el Nombre" id="nombrePokemon" list="pokemonList">
         <datalist id="pokemonList">
         </datalist>
         <button id="Comprobar">Comprobar</button>
       </div>
-      <div>
+      <div class="imgcorrecta">
         <span id="error"></span>
       </div>
       <div class="titulos" id="titulos">
@@ -44,8 +44,22 @@
       </div>
 
     </div>
-    <div class="div2"> </div>
-    <div class="div3"> </div>
+    <div class="div2"></div>
+    <div class="div3" id="div3"> </div>
+    <button id="mostrarOcultarBtn">Instrucciones</button>
+  
+      <div class="leyenda">
+          <p>Bienvenido a esta página de juego donde podrás disfrutar adivinando el nombre de un Pokémon. El desafío consiste en buscar un Pokémon y, con base en las características que comparta con la solución, descubrirás cuáles has acertado y cuáles has fallado.</p>
+          <ol>
+            <li><b>Encuentra un Pokémon</b> Empieza por seleccionar un Pokémon, ya sea de tu conocimiento previo o explorando las opciones disponibles.</li>
+            <li><b>Características del Pokémon:</b> Observa las características del Pokémon que has elegido, como su tipo primario, tipo segundario, generacion a la que pertenece, su peso y su altura.</li>
+            <li><b>Ajusta tu estrategia:</b> Utiliza la información proporcionada para ajustar tu estrategia y hacer nuevas elecciones en tu intento por adivinar correctamente el Pokémon.</li>
+          </ol>
+          <p class="rojo">Fallo (Rojo)</p>
+          <p class="verde">Acierto (Verde)</p>
+          <p class="amarillo">Acierto parcial (Amarillo/Naranja)</p>
+      
+        </div>
   </div>
 
   <script src="js/pokemon.js"></script>

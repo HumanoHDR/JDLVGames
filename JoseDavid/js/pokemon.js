@@ -25,15 +25,13 @@ var tiposEnEspanol = {
   fairy: "Hada"
   // Puedes agregar más tipos según sea necesario
 };
-function selectgen()
-{
- generaciones = document.getElementById("generaciones").value;
- obtenerPokemonRandom();
- divremover = document.getElementsByClassName("resultado")
- while (divremover.length > 0)
- {
-   divremover[0].parentNode.removeChild(divremover[0]);
- }
+function selectgen() {
+  generaciones = document.getElementById("generaciones").value;
+  obtenerPokemonRandom();
+  divremover = document.getElementsByClassName("resultado")
+  while (divremover.length > 0) {
+    divremover[0].parentNode.removeChild(divremover[0]);
+  }
 }
 // Función para obtener nombres de Pokémon desde la API:
 function fetchPokemonNames() {
@@ -42,7 +40,7 @@ function fetchPokemonNames() {
     .then(data => {
       // Extraer nombres de Pokémon de los resultados de la API
       var pokemonNames = data.results.map(pokemon => pokemon.name);
-      
+
       // Llenar el datalist con los nombres de Pokémon
       pokemonNames.forEach(function (pokemonName) {
         var option = document.createElement("option");
@@ -200,7 +198,7 @@ comprobar.addEventListener("click", function () {
 
 
             tipo1Pokemon.innerText = tipos[0];
-            
+
 
             tipo2Pokemon = document.createElement("div");
             tipo2Pokemon.classList.add("r2");
@@ -219,14 +217,14 @@ comprobar.addEventListener("click", function () {
             alturapokemon.innerText = altura + " m";
             divcreation.appendChild(alturapokemon);
 
-            
+
             console.log(pokemoninicial)
-            
+
             // Type 1 Comparison
-            tipo1Pokemon.classList.add(comprobarestados(tipos[0],pokemoninicial[1],pokemoninicial[2]));
+            tipo1Pokemon.classList.add(comprobarestados(tipos[0], pokemoninicial[1], pokemoninicial[2]));
 
             // Type 2 Comparison
-            tipo2Pokemon.classList.add(comprobarestados(tipos[1],pokemoninicial[2],pokemoninicial[1]));
+            tipo2Pokemon.classList.add(comprobarestados(tipos[1], pokemoninicial[2], pokemoninicial[1]));
             divcreation.appendChild(tipo2Pokemon);
             divcreation.appendChild(tipo1Pokemon);
             // Generation Comparison
@@ -254,13 +252,33 @@ comprobar.addEventListener("click", function () {
 
             divtitulos.insertAdjacentElement('afterend', divcreation);
 
-            if(pokemoninicial[0]==pokemonid)
-            {
-              sprite = pokemon.sprites.front_default
+            if (pokemoninicial[0] == pokemonid) {
+              contenedoracierto = document.createElement('div');
+              // Crear la imagen del Pokémon
+              sprite = pokemon.sprites.front_default;
               spritepokeon = document.createElement('img');
               spritepokeon.src = sprite;
               spritepokeon.alt = pokemon.name;
-              spanerror.appendChild(spritepokeon);
+              // Crear un párrafo para el nombre del Pokémon
+              parrafonombrepoke = document.createElement('p');
+              parrafonombrepoke.innerText = pokemon.name.toUpperCase();
+              // Añadir la imagen y el párrafo al contenedor
+              contenedoracierto.appendChild(spritepokeon);
+              contenedoracierto.appendChild(parrafonombrepoke);
+              // Añadir el contenedor al elemento con id "spanerror"
+              spanerror.appendChild(contenedoracierto);
+            } else {
+              contenedorfallo = document.createElement('div');
+              parrafonombrepoke = document.createElement('p');
+              sprite = pokemon.sprites.front_default;
+              spritepokeon = document.createElement('img');
+              spritepokeon.src = sprite;
+              spritepokeon.alt = pokemon.name;
+              parrafonombrepoke.innerText = pokemon.name.toUpperCase();
+              contenedorfallo.appendChild(spritepokeon);
+              contenedorfallo.appendChild(parrafonombrepoke);
+              document.getElementById("div3").appendChild(contenedorfallo);
+
             }
           })
       })
@@ -271,13 +289,39 @@ function comprobarestados(tipo, tipoal1, tipoal2) {
   console.log(tipo.trim())
   console.log(tipoal1.trim())
   console.log(tipoal2.trim())
-  switch(tipo.trim()) {
+  switch (tipo.trim()) {
     case tipoal1.trim():
       return "acierto"
       break;
-      case tipoal2.trim():
+    case tipoal2.trim():
       return "semiacierto"
       break;
-      default: return "fallo";
+    default: return "fallo";
   }
 };
+
+var boton = document.getElementById("mostrarOcultarBtn");
+var leyenda = document.querySelector(".leyenda");
+
+boton.addEventListener("click", function () {
+  // Cambiar la visibilidad de la leyenda
+  if (leyenda.style.display === "none") {
+    leyenda.style.display = "block";
+  } else {
+    leyenda.style.display = "none";
+  }
+});
+
+function cambiarTexto() {
+  var btn = document.getElementById('mostrarOcultarBtn');
+  
+  // Verificar el tamaño de la pantalla
+  if (window.innerWidth <= 600) {
+      btn.innerText = '?';
+  } else {
+      btn.innerText = 'Instrucciones';
+  }
+}
+
+window.onload = cambiarTexto;
+window.onresize = cambiarTexto;

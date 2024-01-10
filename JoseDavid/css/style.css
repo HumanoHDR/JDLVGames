@@ -72,21 +72,73 @@ body {
     width: 80%;
     margin: auto;
     display: flex;
-    align-items: center; /* Centrar verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    text-align: center; /* Asegura que el texto esté centrado */
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
 }
 
 
  .fallo {
-    background: red !important;
+    background: lightcoral !important;
 }
 
 .acierto {
-    background: green !important;
+    background: lightgreen !important;
 }
 .semiacierto {
-    background: orange !important;
+    background: #f39c12 !important;
+}
+
+#mostrarOcultarBtn {
+    background-color: #272727;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 100%;
+}
+
+.leyenda {
+    display: none;
+    background-color:rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: justify;
+    width: 60%;
+    padding: 30px;
+}
+.leyenda>ol>li{
+    padding: 10px;
+}
+
+.rojo {
+    color: #e74c3c;
+}
+
+.verde {
+    color: #2ecc71;
+}
+
+.amarillo {
+    color: #f39c12;
+}
+
+.imgcorrecta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .r1 {
     grid-area: 1 / 1 / 6 / 2;
@@ -107,5 +159,44 @@ body {
     grid-area: 1 / 1 / 6 / 2;
 }
 .div3 {
-    grid-area: 1 / 5 / 6 / 6;
+    display: flex;
+    flex-wrap: wrap; /* Establece el flujo de derecha a izquierda y se mueve hacia abajo si no hay suficiente espacio */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+.div3>div{
+    background: rgb(0, 0, 0,0.7);
+    margin: 1px;
+    font-size: 70%;
+}
+#error{
+    display: flex;
+    flex-wrap: wrap; /* Establece el flujo de derecha a izquierda y se mueve hacia abajo si no hay suficiente espacio */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+#error>div{
+    background: rgb(0, 0, 0,0.5);
+    margin-top: 10px;
+}
+
+.form {
+    text-align: center;
+}
+
+input, #Comprobar, select {
+    margin: 5px;
+}
+
+/* Media query para pantallas con ancho menor o igual a 600px (ajusta este valor según tus necesidades) */
+@media only screen and (max-width: 600px) {
+    /* Estilos específicos para pantallas móviles */
+    input, #Comprobar, select {
+        display: block;
+        width: 100%;
+    }
 }
