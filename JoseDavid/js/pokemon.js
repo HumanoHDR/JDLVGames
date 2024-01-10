@@ -37,7 +37,7 @@ function selectgen()
 }
 // Función para obtener nombres de Pokémon desde la API:
 function fetchPokemonNames() {
-  fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=1025")
     .then(response => response.json())
     .then(data => {
       // Extraer nombres de Pokémon de los resultados de la API
@@ -268,11 +268,10 @@ comprobar.addEventListener("click", function () {
 });
 
 function comprobarestados(tipo, tipoal1, tipoal2) {
-  console.log("entro")
   console.log(tipo.trim())
   console.log(tipoal1.trim())
   console.log(tipoal2.trim())
-  switch(tipo) {
+  switch(tipo.trim()) {
     case tipoal1.trim():
       return "acierto"
       break;
