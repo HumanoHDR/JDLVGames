@@ -38,7 +38,7 @@ function selectgen() {
   if (document.getElementById("generaciones")) {
     //Lo primero como cuando se gana se borra el selector de generaciones es saber cuantos pokemons pondremos
     generaciones = document.getElementById("generaciones").value;
-  } else generaciones = 1025;
+  }
   //En marcando el numero de pokemons que queremos se llamara a la funcion obtener pokemon random que es la 
   //que se encarga de sacar el pokemon que hay que adivinar
   obtenerPokemonRandom();
