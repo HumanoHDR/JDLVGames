@@ -7,7 +7,7 @@ var nuevapartida = document.createElement("button");
 nuevapartida.classList.add("Comprobar");
 nuevapartida.innerHTML = "Nueva Partida";
 nuevapartida.setAttribute("id", "reinicio");
-nuevapartida.setAttribute("onclick","selectgen()");
+nuevapartida.setAttribute("onclick", "selectgen()");
 // Obtener referencias a los elementos del DOM:
 var inputNombrePokemon = document.getElementById("nombrePokemon");
 var datalistPokemon = document.getElementById("pokemonList");
@@ -35,18 +35,16 @@ var tiposEnEspanol = {
 //La función selectgen sirve para que cuando de alguna forma se tenga que eleguir un pokemon nuevo
 //este sea entre las generaciones que se hayan seleccionado o bien se encarga de empezar una partida cuando se empieza de nuevo
 function selectgen() {
-  if(document.getElementById("generaciones"))
-  {
+  if (document.getElementById("generaciones")) {
     //Lo primero como cuando se gana se borra el selector de generaciones es saber cuantos pokemons pondremos
     generaciones = document.getElementById("generaciones").value;
-  } else generaciones=1025;
+  } else generaciones = 1025;
   //En marcando el numero de pokemons que queremos se llamara a la funcion obtener pokemon random que es la 
   //que se encarga de sacar el pokemon que hay que adivinar
   obtenerPokemonRandom();
   //Despues de crear el pokemon miraremos si estamos en esta funcion por que se termino la partida o si es en caso
   //de solo cambiar la generacion
-  if ( document.getElementById("reinicio"))
-  {
+  if (document.getElementById("reinicio")) {
     //si llega aqui significa que terminamos la partida y una vez pulsado el botton agregaremos el buscador y borraremos el reiniciar partida
     sitioform.removeChild(nuevapartida)
     sitioform.insertAdjacentElement('afterend', formulario)
@@ -195,6 +193,7 @@ spanerror = document.getElementById("error");
 comprobar = document.getElementById("Comprobar");
 
 comprobar.addEventListener("click", function () {
+  comprobar.disabled = true;
   nombrePokemonUsuario = document.getElementById("nombrePokemon").value;
   nombrePokemonUsuario = nombrePokemonUsuario.toLowerCase();
   console.log(nombrePokemonUsuario);
@@ -300,7 +299,7 @@ comprobar.addEventListener("click", function () {
               // Añadir el contenedor al elemento con id "spanerror"
               spanerror.appendChild(contenedoracierto);
               sitioform.appendChild(nuevapartida);
-              
+
             } else {
               contenedorfallo = document.createElement('div');
               contenedorfallo.classList.add('resultado2');
@@ -313,12 +312,14 @@ comprobar.addEventListener("click", function () {
               contenedorfallo.appendChild(spritepokeon);
               contenedorfallo.appendChild(parrafonombrepoke);
               document.getElementById("div3").appendChild(contenedorfallo);
-            
+
             }
+            comprobar.disabled = false;
+
           })
       })
   }
-  
+
 });
 
 function comprobarestados(tipo, tipoal1, tipoal2) {
@@ -348,12 +349,12 @@ boton.addEventListener("click", function () {
 
 function cambiarTexto() {
   var btn = document.getElementById('mostrarOcultarBtn');
-  
+
   // Verificar el tamaño de la pantalla
   if (window.innerWidth <= 600) {
-      btn.innerText = '?';
+    btn.innerText = '?';
   } else {
-      btn.innerText = 'Instrucciones';
+    btn.innerText = 'Instrucciones';
   }
 }
 
