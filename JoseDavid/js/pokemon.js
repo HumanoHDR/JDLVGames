@@ -318,6 +318,9 @@ comprobar.addEventListener("click", function () {
 
           })
       })
+      .catch(function (){
+        comprobar.disabled = false;
+      })
   }
 
 });
